@@ -1,0 +1,369 @@
+\ifx\allfiles\undefined
+\documentlecture[12pt, a4paper, oneside, UTF8]{ctexbook}  %  这一句是新增加的
+\usepackage[dvipsnames]{xcolor}
+\usepackage{amsmath}   % 数学公式
+\usepackage{graphicx}
+\usetikzlibrary{arrows, calc, decorations.pathmorphing}
+\allowdisplaybreaks % 允许公式跨页换行
+\newcommand{\pa}{\partial}
+\newcommand{\mathminus}{\!\!-\!\!} % 数学环境连字符
+\newcommand{\vsup}[1]{\raisebox{-0.1ex}{$\scriptstyle #1$}}
+\newcommand{\lsup}[1]{\raisebox{-0.85ex}{$\scriptstyle #1$}}
+
+
+\begin{document}
+%\input{/config/cover} % 单独编译时，其实不用编译封面目录之类的，如需要不注释这句即可
+\else
+\fi
+%  ↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓ 正文部分
+\chapter{预备数学知识}
+\begin{defn}
+    常见的泰勒级数
+    \begin{enumerate}
+        % 1. 指数函数的泰勒级数
+        \item 指数函数 \( e^x \) 的泰勒级数：
+        \[
+        e^x = \sum_{n=0}^{\infty} \frac{x^n}{n!} \qquad \text{收敛域：} (-\infty, \infty)
+        \]
+    
+        % 2. 正弦函数的泰勒级数
+        \item 正弦函数 \( \sin(x) \) 的泰勒级数：
+        \[
+        \sin(x) = \sum_{n=0}^{\infty} (-1)^n \frac{x^{2n+1}}{(2n+1)!} \qquad \text{收敛域：} (-\infty, \infty)
+        \]
+    
+        % 3. 余弦函数的泰勒级数
+        \item 余弦函数 \( \cos(x) \) 的泰勒级数：
+        \[
+        \cos(x) = \sum_{n=0}^{\infty} (-1)^n \frac{x^{2n}}{(2n)!} \qquad \text{收敛域：} (-\infty, \infty)
+        \]
+    
+        % 4. 自然对数函数的泰勒级数
+        \item 自然对数函数 \( \ln(1+x) \) 的泰勒级数：
+        \[
+        \ln(1+x) = \sum_{n=1}^{\infty} (-1)^{n+1} \frac{x^n}{n} \qquad \text{收敛域：} (-1, 1]
+        \]
+    
+        % 5. 几何级数
+        \item 几何级数 \( \frac{1}{1-x} \) 的泰勒级数：
+        \[
+        \frac{1}{1-x} = \sum_{n=0}^{\infty} x^n \qquad \text{收敛域：} (-1, 1)
+        \]
+    
+        % 6. 反正切函数的泰勒级数
+        \item 反正切函数 \( \arctan(x) \) 的泰勒级数：
+        \[
+        \arctan(x) = \sum_{n=0}^{\infty} (-1)^n \frac{x^{2n+1}}{2n+1} \qquad \text{收敛域：} [-1, 1]
+        \]
+    
+        % 7. 二项式级数
+        \item 二项式级数 \( (1+x)^k \) 的泰勒级数（\( k \) 为任意实数）：
+        \[
+        (1+x)^k = \sum_{n=0}^{\infty} \binom{k}{n} x^n \qquad \text{收敛域：} 
+        \begin{cases}
+            [-1, 1] & \text{如果 } k > 0, \\
+            (-1, 1] & \text{如果 } -1 < k < 0, \\
+            (-1, 1) & \text{如果 } k \leq -1.
+        \end{cases}
+        \]
+    \end{enumerate}
+\end{defn}
+\begin{defn}
+    二元高斯分布
+
+利用高斯积分公式和简单的配方运算可以得出
+\[
+\int_{-\infty}^{\infty} e^{-ax^2 + 2bxy - cy^2} \, dx \, dy = \frac{\pi}{\sqrt{ac - b^2}}, \quad (a > 0, c > 0, ac > b^2).
+\]
+
+若令 \( A = \pi^{-1} \sqrt{ac - b^2} \)，则
+\[
+\int p(x, y) \, dx \, dy = 1, \quad p(x, y) \equiv A e^{-ax^2 + 2bxy - cy^2}.
+\]
+
+因此，可以将 \( p(x, y) \) 当成一个二元高斯分布函数，相应地有：
+\[
+\overline{x} = \overline{y} = 0,
+\]
+\[
+\overline{x^2} = \int_{-\infty}^{\infty} x^2 p(x, y) \, dx \, dy = \frac{c}{2(ac - b^2)},
+\]
+\[
+\overline{y^2} = \int_{-\infty}^{\infty} y^2 p(x, y) \, dx \, dy = \frac{a}{2(ac - b^2)},
+\]
+\[
+\overline{xy} = \int_{-\infty}^{\infty} xy p(x, y) \, dx \, dy = \frac{b}{2(ac - b^2)}.
+\]
+\end{defn}
+\begin{defn}
+    \noindent
+    \begin{enumerate}
+        \item 积分 \( A_n = \int_0^\infty \frac{x^n}{e^x - 1} \, dx \)
+        
+        这个积分的被积表达式中的因子 \(\frac{x^n}{e^x - 1}\) 可以作如下的级数展开：        
+        \[
+        \frac{1}{e^x - 1} = \frac{e^{-x}}{1 - e^{-x}} = e^{-x} \sum_{k=0}^\infty e^{-kx} = \sum_{k=0}^\infty e^{-(k+1)x},
+        \]
+        
+        所以有        
+        \[
+        A_n = \int_0^\infty x^n \sum_{k=0}^\infty e^{-(k+1)x} \, dx.
+        \]
+        
+        引入变量代换 \((k+1)x = t\), 上式可以改写为        
+        \[
+        A_n = \sum_{k=0}^\infty (k+1)^{-(n+1)} \int_0^\infty t^n e^{-t} \, dt = \zeta(n+1)\Gamma(n+1).
+        \]
+        
+        当 \( n \leq 1 \) 时, 函数 \(\zeta(n)\) 发散, 因此积分 \( A_0 \) 不收敛.
+        
+        \item 积分 \( B_n = \int_0^\infty \frac{x^n e^x}{(e^x - 1)^2} \, dx \)
+        
+        仿照积分 \( A_n \) 的处理过程，将被积表达式中的因子 \((e^x - 1)^{-2}\) 展开成如下级数：
+        \[
+        (e^x - 1)^{-2} = e^{-2x} \sum_{k=0}^\infty (k+1)e^{-kx}.
+        \]
+        
+        这样就有
+\begin{align*}
+            B_n &= \sum_{k=0}^\infty (k+1) \int_0^\infty x^n e^{-(k+1)x} \, dx
+     \\
+            &= \sum_{k=0}^\infty (k+1)^{-n} \int_0^\infty t^n e^{-t} \, dt = \zeta(n)\Gamma(n+1).
+\end{align*} 
+
+        由于 \(\zeta(1)\) 发散，上式成立且有意义要求 \( n > 1 \).
+        
+        \item 积分 \( C_n = \int_0^\infty \frac{x^n}{e^x + 1} \, dx \)
+        
+        计算方法与 \( A_n \) 类似，结果为        
+        \[
+        C_n = (1 - 2^{-n}) \zeta (n + 1) \Gamma (n + 1).
+        \]
+        \begin{zhu}
+        \( C_0 \) 并不发散，可以直接计算出其取值为 \( C_0 = \ln 2 \)。其它几个特殊值：
+\begin{gather*}
+    C_1 = \frac{1}{2} \zeta (2) \Gamma (2) = \frac{\pi^2}{12}
+    \\
+    C_2 = (1 - 2^{-2}) \zeta (3) \Gamma (3) \approx 1.803
+    \\
+    C_3 = (1 - 2^{-3}) \zeta (4) \Gamma (4) = \frac{7\pi^4}{720}
+\end{gather*}
+        \end{zhu}
+    \item 积分 \( D_n = \int_0^\infty \frac{x^n e^x}{(e^x + 1)^2} \, dx \)
+
+    计算方法与 \( B_n \) 类似，结果为
+    \[
+    D_n = [1 - 2^{-(n-1)}] \zeta(n) \Gamma(n+1).
+    \]
+    
+    由于 \(\zeta(1)\) 发散，上式成立且有意义也要求 \( n > 1 \)。
+\begin{zhu}
+    特殊值：
+    \[
+    D_2 = \frac{1}{2} \zeta(2) \Gamma(3) = \frac{\pi^2}{6}.
+    \]
+\end{zhu}
+    \end{enumerate}
+\end{defn}
+\begin{defn}
+    \noindent
+\begin{enumerate}
+\item 
+函数 \( g_n^{(-)}(\alpha) \) 定义为：
+\[
+g_n^{(-)}(\alpha) = \int_0^\infty \frac{x^n}{e^{x+\alpha} - 1} \, dx.
+\]
+
+被积式中的因子 \((e^{x+\alpha} - 1)^{-1}\) 可以重写为：
+\[
+(e^{x+\alpha} - 1)^{-1} = e^{-(x+\alpha)} (1 - e^{-(x+\alpha)})^{-1} = \sum_{k=0}^\infty e^{-(x+\alpha)(k+1)}.
+\]
+
+代入积分 \( g_n^{(-)}(\alpha) \) 的定义中，可得：
+\[
+g_n^{(-)}(\alpha) = \Gamma(n + 1) \text{Li}_{n+1}(e^{-\alpha}),
+\]
+\item 
+函数 \( g_n^{(+)}(\alpha) \) 定义为：
+\[
+g_n^{(+)}(\alpha) = \int_0^\infty \frac{x^n}{e^{x+\alpha} + 1} \, dx.
+\]
+
+这个函数的计算过程与 \( g_n^{(-)}(\alpha) \) 类似，最后结果为：
+\[
+g_n^{(+)}(\alpha) = -\Gamma(n + 1) \text{Li}_{n+1}(-e^{-\alpha}).
+\]
+\end{enumerate}
+\begin{add}
+    多对数函数 \(\text{Li}_n(z)\) 定义为：
+    \[
+    \text{Li}_n(z) = \sum_{k=1}^\infty \frac{z^k}{k^n}.
+    \]
+    
+    当 \( z = 1 \) 时，多对数函数退化为黎曼 zeta 函数：
+    \[
+    \text{Li}_n(1) = \zeta(n).
+    \]
+    
+    当 \( n = 1 \) 时，多对数函数退化为自然对数函数：
+    \[
+    \text{Li}_1(z) = -\log(1 - z).
+    \]
+    
+    多对数函数的求导法则为：
+    \[
+    \frac{d}{dz} \text{Li}_n(z) = \frac{\text{Li}_{n-1}(z)}{z}.
+    \]
+\end{add}
+\end{defn}
+\begin{proposition}
+\[
+\sum_{\vec{n}} \prod_{j=1}^D f(n_j) = \prod_{j=1}^D \sum_{n_j} f(n_j)
+\]
+\end{proposition}
+\begin{defn}
+    多元函数勒让德变换
+\end{defn}
+\begin{defn}
+    欧拉-麦克劳林公式
+\[
+\sum_{k=a}^{b} f(k) = \int_{a}^{b} f(x) \, dx + \frac{f(a) + f(b)}{2} 
++ \sum_{m=1}^{\infty} \frac{B_{2k}}{(2k)!} \left( f^{(2k-1)}(b) - f^{(2k-1)}(a) \right) 
+\]
+\[
+\sum_{n=a+1}^{b} f(n) = \int_{a}^{b} f(x) \, dx + \frac{f(b) - f(a)}{2} 
++ \sum_{k=1}^{\infty} \frac{B_{2k}}{(2k)!} \left( f^{(2k-1)}(b) - f^{(2k-1)}(a) \right)
+\]
+其中：
+\begin{itemize}
+    \item \( f(x) \) 是一个在区间 \([a, b]\) 上充分光滑的函数。
+    \item \( B_{2k} \) 是伯努利数。
+    \item \( f^{(2k-1)}(x) \) 表示 \( f(x) \) 的 \( (2k-1) \) 阶导数。
+\end{itemize}
+\end{defn}
+\begin{defn}
+    斯特林公式
+\begin{itemize}
+    \item 基本形式为：
+\[
+n! \sim \sqrt{2\pi n} \left( \frac{n}{e} \right)^n \qquad n \to \infty
+\]
+\item 对于伽马函数 \( \Gamma(z) \)，欧拉-麦克劳林形式的斯特林公式为：
+\[
+\log \Gamma(z) = \left( z - \frac{1}{2} \right) \log z - z + \frac{1}{2} \log(2\pi) 
++ \sum_{k=1}^{\infty} \frac{B_{2k}}{2k(2k-1)z^{2k-1}}
+\]
+\end{itemize}
+\end{defn}
+\begin{defn}
+隐函数求导法则
+
+方程 \( f(x, y, z) = 0 \) 定义了一个隐函数，它与以下任意一个显函数等价：
+    \[z = z(x, y), \quad x = x(y, z), \quad y = y(z, x)\]
+\begin{gather*}
+    dz = \left( \frac{\partial z}{\partial x} \right)_y dx + \left( \frac{\partial z}{\partial y} \right)_x dy
+    \qquad
+    dx = \left( \frac{\partial x}{\partial y} \right)_z dy + \left( \frac{\partial x}{\partial z} \right)_y dz
+    \\
+    dz = \left[ \left( \frac{\partial z}{\partial x} \right)_y \left( \frac{\partial x}{\partial z} \right)_y \right] dz 
+    + \left[ \left( \frac{\partial z}{\partial x} \right)_y \left( \frac{\partial x}{\partial y} \right)_z 
+    + \left( \frac{\partial z}{\partial y} \right)_x \right] dy
+    \\\Downarrow\\
+    \left( \frac{\partial z}{\partial x} \right)_y \left( \frac{\partial x}{\partial z} \right)_y = 1
+    \qquad
+    \left( \frac{\partial z}{\partial x} \right)_y \left( \frac{\partial x}{\partial y} \right)_z + \left( \frac{\partial z}{\partial y} \right)_x = 0
+    \\
+    \left( \frac{\partial z}{\partial x} \right)_y = \left[ \left( \frac{\partial x}{\partial z} \right)_y \right]^{-1}
+    \qquad
+    \left( \frac{\partial x}{\partial y} \right)_z \left( \frac{\partial y}{\partial z} \right)_x \left( \frac{\partial z}{\partial x} \right)_y = -1
+\end{gather*}
+\end{defn}
+\chapter{基本知识}
+\section{物理系统及其状态描述}
+\begin{defn}
+    \noindent
+    \begin{itemize}
+        \item 物理系统是自然界中客观存在的事物的一个子集（未必是真子集）。
+        \item 有效自由度数
+        
+        只取描述给定系统的具体物理特征所需的抽象自由度数，不同于实际自由度数。
+        \item 依有效自由度数的大小，物理系统可划分为微观系统和宏观系统两大类（与系统所占的空间尺度关系不大）。
+    \begin{itemize}
+        \item 微观系统有效自由度数很小，其状态称为力学状态或者微观态，相应的态空间就是微观态空间。
+        \item 宏观系统有效自由度数很大（\(\sim 10^{23}\;N_A\text{(量级)}\)），其状态分为两类：
+        \begin{itemize}
+            \item 微观态：全部微观态构成微观态空间，适用力学语言描写
+            \item 宏观态：全部宏观态构成宏观态空间，适用热力学描写
+        \end{itemize}
+        \item 对于宏观系统而言，系统内部所包含的总自由度数（或者等价地描述为粒子数）未必是一个固定的常数，
+        从总自由度数非常大的宏观系统中移除一小部分自由度并不会对整个宏观系统的宏观性质造成可察觉的影响。
+        \item 宏观系统是热力学与统计物理共同关注的物理系统类型，但是两者分析宏观系统演化规律的认识论手段有所不同。
+    \end{itemize}
+        \item 微观规律（力学规律）、宏观规律（后者属于演生规律）。
+    \end{itemize}
+\end{defn}
+\begin{defn}
+    \noindent
+    \begin{itemize}
+        \item 微观系统的状态空间
+    \begin{itemize}
+        \item 微观系统适于用力学语言描述。作为力学系统定义中隐含的一部分，自由度数是一个天然的守恒量，而系统微观状态空间的维数与自由度数密切相关，因此也是一个不变量。
+        \item 给定一个微观系统，其中所含的自由度本质上都具有量子属性，适于用量子力学进行描写。
+        \item 如果系统中各微观粒子的德布罗意波长 \(\lambda\) 相比于其运动范围的空间尺度 \(L\) 非常小 (\(\lambda \ll L\))，
+        或者系统的作用量 \(A = \int d\Omega\) 相比于约化普朗克常量 \(\hbar\) 非常大 (\(A \gg \hbar\))，
+        那么，用经典力学的语言来描写系统的微观态将是非常好的近似。
+    \end{itemize}
+    \item 宏观系统的状态空间
+    \begin{itemize}
+        \item 宏观系统有两类状态空间：微观态空间和宏观态空间。
+        \item 宏观系统的微观态空间与微观系统情况类似，但是由于宏观系统往往不具有确定的微观自由度数或者粒子数，需将粒子数也当作一个微观状态参量处理。
+        \item 系统的宏观态空间由个数不多的宏观状态参量张成，其具体结构将在后面的课程中介绍。
+    \end{itemize}
+    \begin{zhu}
+        \begin{itemize}
+            \item 德布罗意波长 \(\lambda = \frac{h}{p}\)，其中 \(h\) 是普朗克常量，\(p\) 是粒子的动量。
+            \item 经典力学中，系统的状态由广义坐标 \(q(t)\) 和广义动量 \(p(t)\) 描述。
+            \item 作用量 \(A = \int_{t_1}^{t_2} L(q, \dot{q}, t) \, dt\)，其中 \(L\) 是拉格朗日量。
+        \end{itemize}
+    \end{zhu}
+    \end{itemize}
+\end{defn}
+\section{微观系统的状态空间}
+
+
+
+
+
+
+
+
+
+
+
+\section{宏观系统的状态空间}
+
+\section{宏观系统的统计描述}
+
+\section{联系微观与宏观的纽带——熵}
+
+\section{宏观过程}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+%  ↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑ 正文部分
+\ifx\allfiles\undefined
+\end{document}
+\fi
