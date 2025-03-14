@@ -1,0 +1,275 @@
+\ifx\allfiles\undefined
+\documentlecture[12pt, a4paper, oneside, UTF8]{ctexbook}  %  这一句是新增加的
+\usepackage[dvipsnames]{xcolor}
+\usepackage{amsmath}   % 数学公式
+\usepackage{graphicx}
+\usetikzlibrary{arrows, calc, decorations.pathmorphing}
+\allowdisplaybreaks % 允许公式跨页换行
+\newcommand{\pa}{\partial}
+\newcommand{\mathminus}{\!\!-\!\!} % 数学环境连字符
+\newcommand{\vsup}[1]{\raisebox{-0.1ex}{$\scriptstyle #1$}}
+\newcommand{\lsup}[1]{\raisebox{-0.85ex}{$\scriptstyle #1$}}
+
+\begin{document}
+%\input{/config/cover} % 单独编译时，其实不用编译封面目录之类的，如需要不注释这句即可
+\else
+\fi
+%  ↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓ 正文部分
+\chapter{真空中的麦克斯韦方程组}
+\begin{add}
+    \begin{enumerate}
+        电磁学的四个实验定律
+        \item \textbf{库仑定律 (Coulomb's Law)}:
+        \begin{equation}
+        \vecbold{F} = \frac{q_1 q_2}{4 \pi \epsilon_0} \frac{\vecbold{r}_1 - \vecbold{r}_2}{|\vecbold{r}_1 - \vecbold{r}_2|^3}
+    \end{equation}
+    
+        \item \textbf{毕奥-萨伐尔定律 (Biot-Savart Law)}:
+        \begin{equation}
+        d\vecbold{B}(\vecbold{r}_1) = \frac{\mu_0 I_2}{4\pi} d\vecbold{l}_2 \times \frac{\vecbold{r}_1 - \vecbold{r}_2}{|\vecbold{r}_1 - \vecbold{r}_2|^3}
+    \end{equation}    
+        \item \textbf{法拉第电磁感应定律 (Faraday's Law of Induction)}:
+        \begin{equation}
+        \mathcal{E} = -\frac{d\Phi_B}{dt}, \quad \text{其中} \quad 
+        \mathcal{E} = \oint_C \vecbold{E} \cdot d\vecbold{l}, \quad 
+        \Phi_B(t) = \int_S \vecbold{B}(\vecbold{r}, t) \cdot d\vecbold{S}
+    \end{equation}
+    
+        \item \textbf{安培力定律 (Ampère's Force Law)}:
+        \begin{equation}
+        d\vecbold{F} = I \, d\vecbold{l} \times \vecbold{B}
+    \end{equation}
+    \end{enumerate}
+\end{add}
+\section{静电现象}
+\begin{defn}
+    电场强度
+
+    两个静止不动的电荷 \( q_1 \) 和 \( q_2 \) 之间的受力由库仑定律
+    \[
+    \vecbold{F} = \frac{q_1 q_2}{4 \pi \epsilon_0} \frac{\vecbold{r}_1 - \vecbold{r}_2}{|\vecbold{r}_1 - \vecbold{r}_2|^3}
+    \]
+给出。若我们定义
+\begin{gather*}
+        \vecbold{E}(\vecbold{r}_1) = \frac{q_2}{4 \pi \epsilon_0} \frac{\vecbold{r}_1 - \vecbold{r}_2}{|\vecbold{r}_1 - \vecbold{r}_2|^3}
+        =\frac{q_2}{4 \pi \epsilon_0} \frac{\vecbold{r}_1 - \vecbold{r}_2}{|\vecbold{r}_1 - \vecbold{r}_2|^2}\vecbold{e}_{(\vecbold{r}_1,\vecbold{r}_2)}\\
+        \vecbold{F} = q_1 \vecbold{E}(\vecbold{r}_1)
+\end{gather*}
+实验结果显示电场具有叠加性。
+任取 \(\Omega\) 内的一点 \(\vecbold{r} = (x,y,z)\),定义 \(dQ = \rho(\vecbold{x}, \vecbold{y}, \vecbold{z}) dV\) 
+为以 \(\vecbold{r}\) 为中心的一个小的球形体积元 \(dV\) 内的电荷量。因此
+\[
+\vecbold{E}(\vecbold{r}) = \frac{1}{4\pi\epsilon_0}\int_{\Omega}\rho(x,y,z)\frac{\vecbold{r} - \vecbold{r}}{|\vecbold{r} - \vecbold{r}|^3}\,dxdydz
+\]
+\end{defn}
+\begin{defn}
+    电场对于任一闭合曲面\(S\)的通量
+\begin{align*}
+    \oint_S \vecbold{E} \cdot d\vecbold{S} 
+    &= \oint_S \frac{q}{4\pi \epsilon_0} \frac{\vecbold{r} - \vecbold{r}_0}{|\vecbold{r} 
+    - \vecbold{r}_0|^3} \cdot d\vecbold{S} 
+    = \oint_S \frac{q}{4\pi \epsilon_0} d\Omega\\
+    &= \frac{q}{4\pi \epsilon_0} \oint_S d\Omega 
+    = \frac{q}{4\pi \epsilon_0} 4\pi = \frac{q}{\epsilon_0}\\
+\oint_S \vecbold{E} \cdot d\vecbold{S} 
+&= \oint_S (\vecbold{E}_1 + \vecbold{E}_2 + \cdots + \vecbold{E}_N) \cdot d\vecbold{S}\\
+&= \oint_S \vecbold{E}_1 \cdot d\vecbold{S} 
++ \oint_S \vecbold{E}_2 \cdot d\vecbold{S} 
++ \cdots + \oint_S \vecbold{E}_N \cdot d\vecbold{S}\\
+&= \frac{q_1}{\epsilon_0} + \frac{q_2}{\epsilon_0} 
++ \cdots + \frac{q_N}{\epsilon_0} 
+= \frac{1}{\epsilon_0} \sum_{i=1}^N q_i = \frac{Q}{\epsilon_0}\\
+\oint_S \vecbold{E} \cdot d\vecbold{S} &= \frac{Q}{\epsilon_0} 
+= \frac{1}{\epsilon_0} \int_{\Omega} \rho(x, y, z) dx dy dz
+\end{align*}
+\end{defn}
+\begin{thm}
+    电场的散度---高斯定理
+    \begin{tui}
+        以空间中一点 \(\vecbold{r} = (x, y, z)\) 为中心，半径为 \(\delta\) 的一个小的球形区域 \(\Omega_\delta\) 上。我们有
+        \[\oint_{S_{\delta}} \vecbold{E} \cdot d\vecbold{S} = \frac{1}{\epsilon_0} \int_{\Omega_{\delta}} \rho(x, y, z) dx dy dz = \int_{\Omega_{\delta}} \operatorname{div}\vecbold{E}(x, y, z) dx dy dz
+        \]
+        令\(\delta\to 0\) 
+        \begin{align*}
+        \frac{1}{\epsilon_0} \int_{\Omega_\delta} \rho(x, y, z) dx dy dz 
+        &= \frac{1}{\epsilon_0} \int_{\Omega_\delta} \rho_0(x, y, z) dx dy dz
+        = \frac{1}{\epsilon_0} \rho_0(x, y, z) \frac{4\pi}{3} \delta^3 \\
+        =\int_{\Omega_\delta} 
+        \operatorname{div} \vecbold{E}(x, y, z) dx dy dz 
+        &= \int_{\Omega_\delta} 
+        \operatorname{div} \vecbold{E}_0(x, y, z) dx dy dz 
+        = \operatorname{div} \vecbold{E}_0(x, y, z) \frac{4\pi}{3} \delta^3
+        \end{align*}
+        \begin{equation}\label{f1}
+        \operatorname{div} \vecbold{E}(x,y,z) \equiv \nabla \cdot \vecbold{E}(\vecbold{r}) = \frac{1}{\epsilon_0} \rho(x,y,z)
+        \end{equation}
+        这是电磁学中高斯定理的微分形式，也是真空中的麦克斯韦方程组的第一个方程，
+        由高斯（Karl Friedrich Gauss）于1839年在研究地磁场分布的过程中所证明。
+    \end{tui}
+\end{thm}
+\begin{thm}
+    静电场的旋度---安培环路定理
+    \begin{align*}
+        \vecbold{E} ( \vecbold{r} ) &= \frac{1}{4 \pi \varepsilon_0} 
+        \int \frac{\rho ( \vecbold{r} ) d \tau}{R^3} \vecbold{R}
+        = -\frac{1}{4\pi\varepsilon_0} \int \rho(\vecbold{r}) d\tau 
+        \cdot \nabla\left( \frac{1}{R} \right) \\
+        &= - \nabla \left[ \frac{1}{4\pi\varepsilon_0} 
+        \int \frac{\rho(\vecbold{r})}{R} d\tau \right] 
+        = - \nabla \varphi(\vecbold{r})\quad \varphi(\vecbold{r})\text{为标量势}\\
+        \nabla \times \vecbold{E}(\vecbold{r}) 
+        &= -\nabla \times \nabla \varphi(\vecbold{r}) \equiv 0
+    \end{align*}
+    这是真空中的麦克斯韦方程组的第二个方程。
+\end{thm}
+\begin{lemma}
+    \begin{align*}
+        \nabla r&=\left(\frac{\partial}{\partial x} \sqrt{x^2 + y^2 + z^2},
+        \frac{\partial}{\partial y} \sqrt{x^2 + y^2 + z^2},
+        \frac{\partial}{\partial z} \sqrt{x^2 + y^2 + z^2}\right)\\
+        &= \left(\frac{x}{\sqrt{x^2 + y^2 + z^2}},
+        \frac{y}{\sqrt{x^2 + y^2 + z^2}},
+        \frac{z}{\sqrt{x^2 + y^2 + z^2}}\right)
+        =\left(\frac{x}{r},\frac{y}{r},\frac{z}{r}\right)=\frac{\vecbold{r}}{r}\\
+        \nabla \left( \frac{1}{R} \right) &= - \frac{\nabla R}{R^2} = - \frac{1}{R^2} \frac{\vecbold{R}}{R} 
+        = - \frac{\vecbold{R}}{R^3}
+    \end{align*}
+\end{lemma}
+\begin{defn}
+    电偶极子
+    \begin{align*}
+\varphi(\vecbold{r}) &= \frac{q}{4\pi\varepsilon_0} 
+\left( \frac{1}{r_+} - \frac{1}{r_-} \right)
+\approx \frac{q}{4\pi\varepsilon_0} \frac{r_- - r_+}{r^2}
+\approx \frac{q}{4\pi\varepsilon_0} \frac{\cos\theta}{r^2}\\
+&= \frac{p \cos\theta}{4\pi\varepsilon_0 r^2}
+= \frac{\vecbold{p} \cdot \vecbold{r}}{4\pi\varepsilon_0 r^3}\\
+\vecbold{E}(\vecbold{r}) &= -\nabla \varphi
+= -\frac{1}{4\pi\varepsilon_0} \left[ \frac{\nabla (\vecbold{p} \cdot \vecbold{r})}{r^3} + \vecbold{p} 
+\cdot \vecbold{r} \nabla \frac{1}{r^3} \right]
+= -\frac{1}{4\pi\varepsilon_0} \left[ \frac{\vecbold{p} - 3(\vecbold{p} 
+\cdot \hat{\vecbold{r}})\hat{\vecbold{r}}}{r^3} \right]
+    \end{align*}
+\end{defn}
+\section{静磁现象}
+\begin{defn}
+    电流、电流密度、电荷守恒
+\begin{itemize}
+    \item \textbf{电流}：单位时间内垂直穿过某一特定截面的电荷量，用 \( I \) 表示。
+    \[I = \frac{\Delta q}{\Delta t} \bigg|_S\]
+    \item \textbf{电流密度}： \( \vecbold{j} \) 为单位面积单位时间通过的电荷量：
+    \(\displaystyle \vecbold{j} = \frac{\Delta q}{\Delta t \Delta S}\)
+\[
+j = \frac{\rho \Delta \Omega}{\Delta t \Delta S} 
+= \frac{\rho \Delta S v \Delta t}{\Delta t \Delta S} = \rho v
+\Rightarrow \vecbold{j} = \rho(\vecbold{r}) \vecbold{v}(\vecbold{r}) 
+\Rightarrow I = \int_S \vecbold{j} \cdot d\vecbold{S}
+\]
+\item \textbf{电荷守恒}：实验表明电荷是守恒的。
+\[
+\oint_{S} \vecbold{j} \cdot d\vecbold{S} 
+= -\frac{d}{dt} \int_{V} \rho \, d\tau
+\Rightarrow \int_V\left(\nabla\cdot \vecbold{j}
++\frac{\pa \rho}{\pa t}\right)\,d\tau =0
+\Rightarrow \nabla\cdot \vecbold{j}+\frac{\pa \rho}{\pa t}=0
+\]
+\end{itemize}
+\end{defn}
+\begin{law}
+    安培定律(续)
+    
+    若真空中的两个电流元 \(\vecbold{j}_1 d \tau_1\) 和 \(\vecbold{j}_2 d \tau_2\)，
+    则安培定律告诉我们 \(2\) 对 \(1\) 的作用力 \(d \vecbold{F}_{12}\) 为
+\[
+d \vecbold{F}_{12} = \frac{\mu_0}{4 \pi} \frac{\vecbold{j}_1 d \tau_1 \times (\vecbold{j}_2 d \tau_2 \times \vecbold{R}_{12})}{\vecbold{R}_{12}^3}
+\]
+\end{law}
+\begin{example}
+    电流元之间的相互作用力不满足牛顿的作用力与反作用力定律，即 \( d\vecbold{F}_{12} \neq d\vecbold{F}_{21} \)（比如考虑下图的情况）。
+\[
+\uparrow \vecbold{j}_1 d\tau_1
+\qquad\qquad
+\underset{\vecbold{j}_2 d\tau_2}{\longrightarrow}
+\]
+简单的回应是因为不可能存在稳定的电流元，实验所能测量的只能是闭合回路的情况。
+\begin{explain}
+    考虑两闭合载流线圈，则2对1的作用力为
+\begin{align*}
+    \vecbold{F}_{12} &= \frac{\mu_0 I_1 I_2}{4\pi} 
+    \oint_{l_1} \oint_{l_2} \frac{d\vecbold{l}_1 
+    \times (d\vecbold{l}_2 \times \vecbold{R}_{12})}{\vecbold{R}_{12}^3}\\
+    &= \frac{\mu_0 I_1 I_2}{4\pi} 
+    \oint_{l_1} \oint_{l_2} \left[ \frac{d\vecbold{l}_2 (d\vecbold{l}_1 
+    \cdot \vecbold{R}_{12})}{\vecbold{R}_{12}^3} 
+    - \frac{\vecbold{R}_{12} (d\vecbold{l}_2 \cdot d\vecbold{l}_1)}
+    {\vecbold{R}_{12}^3} \right]\\
+    &= -\frac{\mu_0 I_1 I_2}{4\pi} \oint_{l_2} d\vecbold{l}_2 
+    \oint_{l_1} \left[ d\vecbold{l}_1 \cdot \nabla \frac{1}{R_{12}} \right] 
+    - \frac{\mu_0 I_1 I_2}{4\pi} \oint_{l_1} \oint_{l_2} 
+    \frac{\vecbold{R}_{12} (d\vecbold{l}_2 \cdot d\vecbold{l}_1)}
+    {\vecbold{R}_{12}^3} \\
+    &= 0 + -\frac{\mu_0 I_1 I_2}{4\pi} \oint_{l_1} 
+    \oint_{l_2} \frac{\vecbold{R}_{12} (d\vecbold{l}_2 \cdot d\vecbold{l}_1)}
+    {\vecbold{R}_{12}^3} 
+    = -\vecbold{F}_{21}
+\end{align*}
+\end{explain}
+\end{example}
+\begin{law}
+    毕奥-萨伐尔定律(续)
+    
+    将作用在电流元 \( \vecbold{j}_1 d\tau_1 \) 上的力写为
+\[
+d\vecbold{F}_1 = \vecbold{j}_1 d\tau_1 \times \vecbold{B}(\vecbold{r})
+\]
+其中 \(\displaystyle \vecbold{B}(\vecbold{r}) = \frac{\mu_0}{4\pi} \vecbold{j}_2 d\tau_2 
+\times \frac{\vecbold{R}_{12}}{R_{12}^3}\) 为电流元 \( \vecbold{j}_2 d\tau_2 \) 
+在 \(\vecbold{r}\) 处产生的磁场。由叠加原理，对任意的电流分布 \(\vecbold{j}(\vecbold{r})\)，
+其在 \(\vecbold{r}\) 处产生的磁场为
+\[
+\vecbold{B}(\vecbold{r}) = \frac{\mu_0}{4\pi} 
+\int \frac{\vecbold{j}(\vecbold{r}) d\tau \times \vecbold{R}}{R^3}
+\]
+函数 \(\vecbold{B}(\vecbold{r})\) 称为磁感应强度
+\end{law}
+\begin{example}
+    以速度 \( \vecbold{v} \) 运动的电荷 \( q \) 产生的电流密度为  
+\[
+\vecbold{j} = q\vecbold{v}\delta(\vecbold{r} - vt\hat{\vecbold{x}}) \quad (\text{仅在 } v \ll \text{光速时成立})
+\]
+因此其在 \(\vecbold{B}\) 场中所受的力为  
+\[
+\vecbold{F} = \int_{\tau} q\delta(\vecbold{r} - vt\hat{\vecbold{x}})d\tau \vecbold{v} 
+\times \vecbold{B} = q\vecbold{v} \times \vecbold{B}
+\]
+
+若空间既有磁场又有电场，则总受力为  
+\[
+\vecbold{F} = q\left( \vecbold{E} + \vecbold{v} 
+\times \vecbold{B} \right) \tag{1.2.17}
+\]
+
+这就是描述带电粒子在空间既有电场又有磁场时的受力---Lorentz 力。
+\end{example}
+
+
+
+
+
+
+
+
+
+
+
+%    请你转换为latex源码，矢量用\vecbold表示
+
+
+
+
+
+
+%  ↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑ 正文部分
+\ifx\allfiles\undefined
+\end{document}
+\fi
