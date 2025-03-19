@@ -15,7 +15,7 @@
 \else
 \fi
 %  ↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓ 正文部分
-\chapter{真空中的麦克斯韦方程组}
+\section{真空中的麦克斯韦方程组}
 \begin{add}
     \begin{enumerate}
         电磁学的四个实验定律
@@ -41,7 +41,7 @@
     \end{equation}
     \end{enumerate}
 \end{add}
-\section{静电现象}
+\subsection{静电现象}
 \begin{defn}
     电场强度
 
@@ -151,7 +151,7 @@
 \cdot \hat{\vecbold{r}})\hat{\vecbold{r}}}{r^3} \right]
     \end{align*}
 \end{defn}
-\section{静磁现象}
+\subsection{静磁现象}
 \begin{defn}
     电流、电流密度、电荷守恒
 \begin{itemize}
@@ -228,15 +228,69 @@ d\vecbold{F}_1 = \vecbold{j}_1 d\tau_1 \times \vecbold{B}(\vecbold{r})
 其在 \(\vecbold{r}\) 处产生的磁场为
 \[
 \vecbold{B}(\vecbold{r}) = \frac{\mu_0}{4\pi} 
-\int \frac{\vecbold{j}(\vecbold{r}) d\tau \times \vecbold{R}}{R^3}
+\int_{V'} \frac{\vecbold{j}(\vecbold{r}) d\tau \times \vecbold{R}}{R^3}
+=\frac{\mu_0}{4\pi} 
+\oint_{L'} I' \, d\vecbold{l}'\times \frac{\vecbold{R}}{R^3}
 \]
 函数 \(\vecbold{B}(\vecbold{r})\) 称为磁感应强度
 \end{law}
+\begin{thm}
+    磁场的散度
+    \begin{align*}
+        \vecbold{B}(\vecbold{r}) &= \frac{\mu_0}{4\pi} \int \vecbold{j}(\vecbold{r}') \times \frac{\vecbold{R}}{R^3} d\tau' 
+        = -\frac{\mu_0}{4\pi} \int \vecbold{j}(\vecbold{r}') \times \left( \nabla \frac{1}{R} \right) d\tau' 
+        = \frac{\mu_0}{4\pi} \int \left( \nabla \frac{1}{R} \right) \times \vecbold{j}(\vecbold{r}') d\tau' \\
+        &= \frac{\mu_0}{4\pi} \int \nabla \times \frac{\vecbold{j}(\vecbold{r}')}{R} d\tau' 
+        = \nabla \times \left[ \frac{\mu_0}{4\pi} \int \frac{\vecbold{j}(\vecbold{r}')}{R} d\tau' \right] 
+        = \nabla \times \vecbold{A}
+    \end{align*}
+    其中，矢势 \(\vecbold{A}\) 定义为：
+\(\displaystyle
+\vecbold{A}(\vecbold{r}) = \frac{\mu_0}{4\pi} \int \frac{\vecbold{j}(\vecbold{r}')}{R} d\tau'
+\)
+\[
+\nabla \cdot \vecbold{B}(\vecbold{r}) 
+= \nabla \cdot (\nabla \times \vecbold{A}) = 0
+\Rightarrow \nabla \cdot \vecbold{B}(\vecbold{r},t)=0 \Rightarrow
+\oint_S d\vecbold{S}\cdot\vecbold{B}(\vecbold{r},t)=0
+\]
+\end{thm}
+\begin{thm}
+    磁场的旋度
+    \[
+\nabla \times \vecbold{B}(\vecbold{r}) = \nabla \times (\nabla \times \vecbold{A}) = \nabla(\nabla \cdot \vecbold{A}) - \nabla^2 \vecbold{A}
+\]
+\begin{align*}
+\nabla \cdot \vecbold{A} &= \nabla \cdot \frac{\mu_0}{4\pi} 
+\int_V \frac{\vecbold{j}(\vecbold{r}')}{R} d\tau' 
+= \frac{\mu_0}{4\pi} \int_{V'} \left( \nabla \frac{1}{R} \right) 
+\cdot \vecbold{j}(\vecbold{r}') d\tau'\\
+    &=-\frac{\mu_0}{4\pi} \int_{V'} \left( \nabla' \frac{1}{R} \right) 
+    \cdot \vecbold{j}(\vecbold{r}') d\tau'\\
+    &=-\frac{\mu_0}{4\pi} \int_{V'} \nabla'\cdot\left(  \frac{\vecbold{j}(\vecbold{r}') }{R} \right) d\tau'
+    +\frac{\mu_0}{4\pi} \int_{V'} \frac{1}{R}
+    \nabla'\cdot \vecbold{j}(\vecbold{r}') d\tau'\\
+    &\because\quad \nabla'\cdot \vecbold{j}(\vecbold{r}') =-\frac{\pa \rho}{\pa t}=0\\
+    \nabla \cdot \vecbold{A} &=
+    -\frac{\mu_0}{4\pi} \int_{V'} \nabla'\cdot\left(  \frac{\vecbold{j}(\vecbold{r}') }{R} \right) d\tau'
+    =-\frac{\mu_0}{4\pi} \oint_{S'} \,d S'\cdot\frac{\vecbold{j}(\vecbold{r}') }{R}
+\end{align*}
+\begin{zhu}
+\[
+\left.
+\nabla f(R) = \frac{\partial f}{\partial R} \nabla R = \frac{\partial f}{\partial R} \frac{(\vecbold{r} - \vecbold{r}')}{R}\\
+\nabla' f(R) = \frac{\partial f}{\partial R} \nabla' R = \frac{\partial f}{\partial R} \frac{(\vecbold{r}' - \vecbold{r})}{R}
+\right\}
+\Rightarrow \nabla f(R) = -\nabla' f(R)\]
+
+\end{zhu}
+\end{thm}
 \begin{example}
     以速度 \( \vecbold{v} \) 运动的电荷 \( q \) 产生的电流密度为  
 \[
 \vecbold{j} = q\vecbold{v}\delta(\vecbold{r} - vt\hat{\vecbold{x}}) \quad (\text{仅在 } v \ll \text{光速时成立})
 \]
+
 因此其在 \(\vecbold{B}\) 场中所受的力为  
 \[
 \vecbold{F} = \int_{\tau} q\delta(\vecbold{r} - vt\hat{\vecbold{x}})d\tau \vecbold{v} 
@@ -246,7 +300,7 @@ d\vecbold{F}_1 = \vecbold{j}_1 d\tau_1 \times \vecbold{B}(\vecbold{r})
 若空间既有磁场又有电场，则总受力为  
 \[
 \vecbold{F} = q\left( \vecbold{E} + \vecbold{v} 
-\times \vecbold{B} \right) \tag{1.2.17}
+\times \vecbold{B} \right)
 \]
 
 这就是描述带电粒子在空间既有电场又有磁场时的受力---Lorentz 力。
@@ -255,14 +309,52 @@ d\vecbold{F}_1 = \vecbold{j}_1 d\tau_1 \times \vecbold{B}(\vecbold{r})
 
 
 
+\begin{law}
+    电动力学中的欧姆定律（微分形式）和电磁学中的欧姆定律（积分形式）本质上是相同的。
+
+    微分形式
+\(
+\vecbold{J} = \sigma \vecbold{E}
+\)
+，积分形式
+\(
+V = IR
+\)
+    \begin{proof}
+    对于一段均匀导体，假设其长度为 \(L\)，横截面积为 \(A\)，电导率为 \(\sigma\)，则电阻 \(R\) 可以表示为：
+\[
+R = \frac{L}{\sigma A}
+\]
+
+电场强度 \(\vecbold{E}\) 与电压 \(V\) 的关系为：
+\[
+V = \int \vecbold{E} \cdot d\vecbold{l} = EL
+\]
+
+电流密度 \(\vecbold{J}\) 与电流 \(I\) 的关系为：
+\[
+I = \int \vecbold{J} \cdot d\vecbold{A} = JA
+\]
+
+将微分形式的欧姆定律 \(\vecbold{J} = \sigma \vecbold{E}\) 代入，可以得到：
+\[
+I = \sigma E A = \sigma \left(\frac{V}{L}\right) A
+\]
+
+整理后得到：
+\[
+V = I \left(\frac{L}{\sigma A}\right) = IR
+\]
+这正是积分形式的欧姆定律。
+    \end{proof}
+\end{law}
 
 
 
 
 
 
-
-%    请你转换为latex源码，矢量用\vecbold表示
+%    请你转换为latex源码，矢量用\vecbold表示，使用align*或gather*
 
 
 
