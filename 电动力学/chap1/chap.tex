@@ -237,16 +237,16 @@ d\vecbold{F}_1 = \vecbold{j}_1 d\tau_1 \times \vecbold{B}(\vecbold{r})
 \begin{thm}
     磁场的散度
     \begin{align*}
-        \vecbold{B}(\vecbold{r}) &= \frac{\mu_0}{4\pi} \int \vecbold{j}(\vecbold{r}') \times \frac{\vecbold{R}}{R^3} d\tau' 
-        = -\frac{\mu_0}{4\pi} \int \vecbold{j}(\vecbold{r}') \times \left( \nabla \frac{1}{R} \right) d\tau' 
-        = \frac{\mu_0}{4\pi} \int \left( \nabla \frac{1}{R} \right) \times \vecbold{j}(\vecbold{r}') d\tau' \\
-        &= \frac{\mu_0}{4\pi} \int \nabla \times \frac{\vecbold{j}(\vecbold{r}')}{R} d\tau' 
-        = \nabla \times \left[ \frac{\mu_0}{4\pi} \int \frac{\vecbold{j}(\vecbold{r}')}{R} d\tau' \right] 
+        \vecbold{B}(\vecbold{r}) &= \frac{\mu_0}{4\pi} \int_{V'} \vecbold{j}(\vecbold{r}') \times \frac{\vecbold{R}}{R^3} d\tau' 
+        = -\frac{\mu_0}{4\pi} \int_{V'} \vecbold{j}(\vecbold{r}') \times \left( \nabla \frac{1}{R} \right) d\tau' 
+        = \frac{\mu_0}{4\pi} \int_{V'} \left( \nabla \frac{1}{R} \right) \times \vecbold{j}(\vecbold{r}') d\tau' \\
+        &= \frac{\mu_0}{4\pi} \int_{V'} \nabla \times \frac{\vecbold{j}(\vecbold{r}')}{R} d\tau' 
+        = \nabla \times \left[ \frac{\mu_0}{4\pi} \int_{V'} \frac{\vecbold{j}(\vecbold{r}')}{R} d\tau' \right] 
         = \nabla \times \vecbold{A}
     \end{align*}
     其中，矢势 \(\vecbold{A}\) 定义为：
 \(\displaystyle
-\vecbold{A}(\vecbold{r}) = \frac{\mu_0}{4\pi} \int \frac{\vecbold{j}(\vecbold{r}')}{R} d\tau'
+\vecbold{A}(\vecbold{r}) = \frac{\mu_0}{4\pi} \int_{V'} \frac{\vecbold{j}(\vecbold{r}')}{R} d\tau'
 \)
 \[
 \nabla \cdot \vecbold{B}(\vecbold{r}) 
@@ -256,7 +256,7 @@ d\vecbold{F}_1 = \vecbold{j}_1 d\tau_1 \times \vecbold{B}(\vecbold{r})
 \]
 \end{thm}
 \begin{thm}
-    磁场的旋度
+    磁场的旋度---安培环路定理
     \[
 \nabla \times \vecbold{B}(\vecbold{r}) = \nabla \times (\nabla \times \vecbold{A}) = \nabla(\nabla \cdot \vecbold{A}) - \nabla^2 \vecbold{A}
 \]
@@ -274,16 +274,25 @@ d\vecbold{F}_1 = \vecbold{j}_1 d\tau_1 \times \vecbold{B}(\vecbold{r})
     \nabla \cdot \vecbold{A} &=
     -\frac{\mu_0}{4\pi} \int_{V'} \nabla'\cdot\left(  \frac{\vecbold{j}(\vecbold{r}') }{R} \right) d\tau'
     =-\frac{\mu_0}{4\pi} \oint_{S'} \,d S'\cdot\frac{\vecbold{j}(\vecbold{r}') }{R}
+    \bigg|_{r'\to \infty}=0
 \end{align*}
 \begin{zhu}
 \[
 \left.
-\nabla f(R) = \frac{\partial f}{\partial R} \nabla R = \frac{\partial f}{\partial R} \frac{(\vecbold{r} - \vecbold{r}')}{R}\\
-\nabla' f(R) = \frac{\partial f}{\partial R} \nabla' R = \frac{\partial f}{\partial R} \frac{(\vecbold{r}' - \vecbold{r})}{R}
+\begin{aligned}
+    \nabla f(R) &= \frac{\partial f}{\partial R} \nabla R = \frac{\partial f}{\partial R} \frac{(\vecbold{r} - \vecbold{r}')}{R}\\
+\nabla' f(R) &= \frac{\partial f}{\partial R} \nabla' R = \frac{\partial f}{\partial R} \frac{(\vecbold{r}' - \vecbold{r})}{R}
+\end{aligned}
 \right\}
 \Rightarrow \nabla f(R) = -\nabla' f(R)\]
-
 \end{zhu}
+\begin{align*}
+    \nabla^2 \vecbold{A} &= \frac{\mu_0}{4\pi} \int \nabla^2 \frac{\vecbold{j}(\vecbold{r}')}{R} d\vecbold{r}' 
+    = \frac{\mu_0}{4\pi} \int \vecbold{j}(\vecbold{r}') \left( \nabla^2 \frac{1}{R} \right) d\vecbold{r}' \\
+     &= - \mu_0 \int \vecbold{j}(\vecbold{r}') \delta(\vecbold{R}) d\vecbold{r}' 
+     = - \mu_0 \vecbold{j}(\vecbold{r}) \\
+    \nabla \times \vecbold{B} &= \mu_0 \vecbold{j}(\vecbold{r})
+\end{align*}
 \end{thm}
 \begin{example}
     以速度 \( \vecbold{v} \) 运动的电荷 \( q \) 产生的电流密度为  
