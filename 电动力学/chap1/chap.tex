@@ -15,30 +15,149 @@
 \else
 \fi
 %  ↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓ 正文部分
+\chapter{经典电磁学实验复习}
+\subsection*{1. 库仑扭秤实验 (1784--1785)}
+\textbf{人物}: 查尔斯·奥古斯丁·库仑 (Charles-Augustin de Coulomb)\\
+\textbf{实验过程}:
+\begin{itemize}
+    \item 装置：利用悬丝扭转刚度$k$已知的扭秤，悬挂两个带同种电荷的金属小球
+    \item 测量方法：通过扭转角度$\theta$与静力矩平衡关系计算作用力$F$
+    \item 控制变量：保持恒温环境以减少空气湿度对电荷量的影响
+\end{itemize}
+\textbf{数学表达}:
+\begin{equation*}
+    F = \frac{1}{4\pi\epsilon_0} \frac{|q_1 q_2|}{r^2} \quad \left(\epsilon_0 = 8.85 \times 10^{-12} \, \text{C}^2 \cdot \text{N}^{-1} \cdot \text{m}^{-2}\right)
+\end{equation*}
+\textbf{误差分析}: 测量相对误差$\Delta F/F \approx 3\%$（为现代复现实验数据）
+
+\subsection*{2. 奥斯特电流磁效应实验 (1820)}
+\textbf{人物}: 汉斯·克里斯蒂安·奥斯特 (Hans Christian Ørsted)\\
+\textbf{实验重现}:
+\begin{itemize}
+    \item 关键装置：伏打电堆、铂丝导线、高灵敏度磁针（最小分辨角$0.5^\circ$）
+    \item 排除干扰：通过重复实验排除机械振动与热效应对磁针的影响
+\end{itemize}
+\textbf{定量关系}:
+    \(\displaystyle \sin\alpha \propto I \quad (\alpha\text{: 磁针偏转角}, I\text{: 导线电流强度})\)
+    原始文献仅定性描述，定量关系为安培后期推导结果。
+
+\subsection*{3. 毕奥-萨伐尔定律 (1820)}
+\textbf{人物}: 让-巴蒂斯特·毕奥 (Jean-Baptiste Biot)、费利克斯·萨伐尔 (Félix Savart)\\
+\textbf{实验方法}:
+\begin{itemize}
+    \item 测量长直导线周围磁场分布：$B \propto I/r$
+    \item 推导电流元磁场公式：为后人使用现代矢量符号重新表述。
+    \begin{equation*}
+        d\vecbold{B} = \frac{\mu_0}{4\pi}\frac{I d\vecbold{l} \times \hat{\vecbold{r}}}{r^2}
+    \end{equation*}
+\end{itemize}
+
+\subsection*{4. 安培对电磁作用的实验 (1820-1827)}
+\textbf{人物}: 安德烈-马里·安培 (André-Marie Ampère)
+
+\subsubsection*{实验一：平行载流导线力 (1820年9月)}
+\begin{itemize}
+    \item \textbf{定量公式}：
+    \begin{equation*}
+        \frac{F}{L} = \frac{\mu_0 I_1 I_2}{2\pi d} 
+    \end{equation*}
+\end{itemize}
+
+\subsubsection*{实验二：载流线圈等效磁铁 (1821年1月)}
+\begin{itemize}
+    \item \textbf{装置}：直径20\,cm铜线圈，通电流$I=30$\,A产生等效地磁场强度
+    \item \textbf{结论}：证明载流线圈与永磁铁的磁场分布数学等价
+\end{itemize}
+
+\subsubsection*{实验三：闭合回路相互作用 (1823年)}
+\begin{itemize}
+    \item \textbf{现象}：两个可变形铜环（$R=15$\,cm）在电流作用下形成稳定同心圆
+    \item \textbf{数学表述}：回路总能量最小化原理 $\delta W = \oint I d\vecbold{l} \cdot \vecbold{B} = 0$
+\end{itemize}
+
+\subsubsection*{实验四：电流元作用力测定 (1825年)}
+\begin{itemize}
+    \item \textbf{装置}：可旋转圆弧导体测量电流元受力
+    \item \textbf{核心公式}：安培原始公式为标量形式，矢量形式为后人总结。
+    \begin{equation*}
+        d\vecbold{F}_{12} = \frac{\mu_0}{4\pi} \frac{I_1 I_2}{r^2} \left[ 3(\vecbold{dl}_1 \cdot \hat{\vecbold{r}})(\vecbold{dl}_2 \cdot \hat{\vecbold{r}}) - 2\vecbold{dl}_1 \cdot \vecbold{dl}_2 \right]
+    \end{equation*}
+    \item \textbf{Grassmann形式 (1845)}：
+    \begin{equation*}
+        d\vecbold{F}_{12} = \frac{\mu_0 I_1 I_2}{4\pi r^2}(\vecbold{dl}_2 \times (\vecbold{dl}_1 \times \hat{\vecbold{r}}))
+    \end{equation*}
+\end{itemize}
+
+\subsubsection*{分子电流假说 (1827年)}
+\begin{itemize}
+    \item \textbf{核心内容}：物质内部存在微观环形电流（等效磁矩$\vecbold{m}=I\Delta S$）
+    \item \textbf{实验证据}：软铁磁化后磁性强弱与退磁场中电流变化率成正比
+    \item \textbf{现代验证}：量子力学证明电子自旋磁矩与此假说本质一致
+\end{itemize}
+
+\subsection*{5. 法拉第电磁感应定律 (1831)}
+\textbf{人物}: 迈克尔·法拉第 (Michael Faraday)\\
+\textbf{实验}:
+\begin{itemize}
+    \item 关键装置：软铁环双线圈系统
+    \begin{itemize}
+        \item 初级线圈：300匝，通断$I=5$\,A电流
+        \item 次级线圈：200匝，检测感应电流
+    \end{itemize}
+    \item 数学表述：微分形式为麦克斯韦后期总结。
+    \begin{align*}
+        \mathcal{E} &= -\frac{d\Phi_B}{dt} \tag{积分形式} \\
+        \nabla \times \vecbold{E} &= -\frac{\partial \vecbold{B}}{\partial t} \tag{微分形式}
+    \end{align*}
+\end{itemize}
+
+\subsection*{6. 麦克斯韦方程组 (1861--1865)}
+\textbf{人物}: 詹姆斯·克拉克·麦克斯韦 (James Clerk Maxwell)\\
+\textbf{理论突破}:现代形式为后人简化表述。
+\begin{itemize}
+    \item 位移电流假说：交变电场产生等效电流密度
+    \begin{equation*}
+        \vecbold{J}_d = \epsilon_0 \frac{\partial \vecbold{E}}{\partial t}
+    \end{equation*}
+    \item 安培定律修正：
+    \begin{equation*}
+        \nabla \times \vecbold{B} = \mu_0\left( \vecbold{J} + \epsilon_0 \frac{\partial \vecbold{E}}{\partial t} \right)
+    \end{equation*}
+\end{itemize}
+
+\subsection*{7. 赫兹电磁波实验 (1887)}
+\textbf{人物}: 海因里希·赫兹 (Heinrich Hertz)\\
+\textbf{技术参数}:
+\begin{itemize}
+    \item 发射器：$L=0.4\,\mu\text{H}$, $C=1.5\,\text{pF}$, $f=108\,\text{MHz}$
+    \item 接收器：铜环直径35\,cm，火花隙0.1\,mm
+    \item 波长测量：$\lambda=2.8$\,m，波速$v=3.02\times10^8$\,m/s
+\end{itemize}
+\chapter{电磁场的普遍规律}
 \section{真空中的麦克斯韦方程组}
 \begin{add}
     \begin{enumerate}
         电磁学的四个实验定律
         \item \textbf{库仑定律 (Coulomb's Law)}:
-        \begin{equation}
+        \begin{equation*}
         \vecbold{F} = \frac{q_1 q_2}{4 \pi \epsilon_0} \frac{\vecbold{r}_1 - \vecbold{r}_2}{|\vecbold{r}_1 - \vecbold{r}_2|^3}
-    \end{equation}
+    \end{equation*}
     
         \item \textbf{毕奥-萨伐尔定律 (Biot-Savart Law)}:
-        \begin{equation}
+        \begin{equation*}
         d\vecbold{B}(\vecbold{r}_1) = \frac{\mu_0 I_2}{4\pi} d\vecbold{l}_2 \times \frac{\vecbold{r}_1 - \vecbold{r}_2}{|\vecbold{r}_1 - \vecbold{r}_2|^3}
-    \end{equation}    
+    \end{equation*}    
         \item \textbf{法拉第电磁感应定律 (Faraday's Law of Induction)}:
-        \begin{equation}
+        \begin{equation*}
         \mathcal{E} = -\frac{d\Phi_B}{dt}, \quad \text{其中} \quad 
         \mathcal{E} = \oint_C \vecbold{E} \cdot d\vecbold{l}, \quad 
         \Phi_B(t) = \int_S \vecbold{B}(\vecbold{r}, t) \cdot d\vecbold{S}
-    \end{equation}
+    \end{equation*}
     
         \item \textbf{安培力定律 (Ampère's Force Law)}:
-        \begin{equation}
+        \begin{equation*}
         d\vecbold{F} = I \, d\vecbold{l} \times \vecbold{B}
-    \end{equation}
+    \end{equation*}
     \end{enumerate}
 \end{add}
 \subsection{静电现象}
